@@ -371,7 +371,7 @@ bind = $mainMod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-cop
 # -- Screenshot --
 bind = , Print, exec, grim -g "$(slurp)" - | swappy -f -
 bind = $mainMod, Print, exec, grim - | swappy -f -
-bind = $mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy
+bind = $mainMod SHIFT, P, exec, grim -g "$(slurp)" - | wl-copy
 
 # -- Power / Session --
 bind = $mainMod SHIFT, Q, exec, wlogout
