@@ -1,0 +1,154 @@
+/* ======= Shadow Dragon Theme — Waybar ======= */
+
+@define-color bg       #0a0b14;
+@define-color bg-alt   #111827;
+@define-color surface  #1e1b4b;
+@define-color overlay  #2d2b5e;
+@define-color accent1  #7c3aed;
+@define-color accent2  #d946ef;
+@define-color text     #e2e8f0;
+@define-color subtext  #94a3b8;
+@define-color red      #f43f5e;
+@define-color yellow   #eab308;
+@define-color green    #22c55e;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 7 Free";
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @text;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: alpha(@bg, 0.85);
+    border: 1px solid alpha(@accent1, 0.3);
+    border-radius: 12px;
+    padding: 0 6px;
+}
+
+/* ======= Workspaces ======= */
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    color: @subtext;
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+#workspaces button:hover {
+    background: alpha(@accent1, 0.2);
+    color: @text;
+}
+
+#workspaces button.active {
+    background: linear-gradient(90deg, @accent1, @accent2);
+    color: @text;
+    border-radius: 8px;
+    padding: 2px 12px;
+}
+
+#workspaces button.urgent {
+    background: @red;
+    color: @text;
+}
+
+/* ======= Window title ======= */
+#window {
+    color: @subtext;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+/* ======= Clock ======= */
+#clock {
+    color: @accent2;
+    font-weight: bold;
+    padding: 0 12px;
+}
+
+/* ======= Modules ======= */
+#cpu,
+#memory,
+#battery,
+#network,
+#pulseaudio,
+#backlight,
+#bluetooth,
+#tray,
+#custom-power {
+    padding: 0 10px;
+    color: @text;
+}
+
+#cpu { color: #a78bfa; }
+#memory { color: #60a5fa; }
+#network { color: #34d399; }
+#pulseaudio { color: #f9a8d4; }
+#backlight { color: @yellow; }
+#bluetooth { color: #60a5fa; }
+
+#battery {
+    color: @green;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to { color: @text; }
+}
+
+#custom-power {
+    color: @accent2;
+    font-size: 16px;
+    padding-right: 12px;
+}
+
+#tray {
+    padding: 0 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: alpha(@red, 0.2);
+    border-radius: 4px;
+}
+
+/* ======= Tooltip ======= */
+tooltip {
+    background: @bg-alt;
+    border: 1px solid alpha(@accent1, 0.4);
+    border-radius: 8px;
+    color: @text;
+}
+
+tooltip label {
+    color: @text;
+    padding: 4px;
+}
