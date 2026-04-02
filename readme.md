@@ -92,29 +92,21 @@ chmod +x install.sh
 - Setup SDDM theme corners
 - Rebuild font cache
 
-Setelah `install.sh` selesai, lanjut ke proses manual di bawah sebelum reboot.
+Setelah `install.sh` selesai, langsung reboot:
+
+```bash
+sudo reboot
+```
+
+SDDM akan muncul, login, dan Hyprland akan start otomatis. Lanjut ke proses manual di bawah dari dalam Hyprland.
 
 ---
 
-## 4. Proses Manual Setelah install.sh
+## 4. Proses Manual Setelah Masuk Hyprland
 
-### 4.1 Thunar — Custom Action "Open Terminal Here"
+> Buka terminal dulu dengan `Super + Enter` sebelum memulai.
 
-`install.sh` tidak bisa mengotomasi ini karena membutuhkan GUI.
-
-1. Buka Thunar
-2. Pergi ke **Edit → Configure Custom Actions → klik tombol +**
-3. Isi sebagai berikut:
-
-| Field | Value |
-|---|---|
-| Name | Open Terminal |
-| Command | `kitty --working-directory %f` |
-| Icon | `utilities-terminal` |
-| File Pattern | `*` |
-| Appears if selection contains | Directories |
-
-### 4.2 GTK Theme — nwg-look
+### 4.1 GTK Theme — nwg-look
 
 `nwg-look` adalah GUI untuk apply GTK theme, icon, dan cursor secara konsisten ke semua aplikasi.
 
@@ -134,15 +126,19 @@ nwg-look
 
 3. Klik **Apply**
 
-### 4.3 Reboot
+### 4.2 Thunar — Custom Action "Open Terminal Here"
 
-Setelah semua proses manual selesai, reboot:
+1. Buka Thunar dengan `Super + E`
+2. Pergi ke **Edit → Configure Custom Actions → klik tombol +**
+3. Isi sebagai berikut:
 
-```bash
-sudo reboot
-```
-
-SDDM akan muncul, login, dan Hyprland akan start otomatis.
+| Field | Value |
+|---|---|
+| Name | Open Terminal |
+| Command | `kitty --working-directory %f` |
+| Icon | `utilities-terminal` |
+| File Pattern | `*` |
+| Appears if selection contains | Directories |
 
 ---
 
