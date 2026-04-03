@@ -1,12 +1,12 @@
 # 🐉 Shadow Dragon — Hyprland Setup Guide
-### EndeavourOS (No DE) · Intel iGPU · Full Custom Desktop
+### Arch Linux (Base Install) · Intel iGPU · Full Custom Desktop
 
 ---
 
 ## 📋 Daftar Isi
 
 1. [Referensi Warna](#1-referensi-warna)
-2. [Install EndeavourOS](#2-install-endeavouros)
+2. [Install Arch Linux](#2-install-arch-linux)
 3. [Clone Repo & Jalanin install.sh](#3-clone-repo--jalanin-installsh)
 4. [Proses Manual Setelah Masuk Hyprland](#4-proses-manual-setelah-masuk-hyprland)
 5. [Komponen Desktop](#5-komponen-desktop)
@@ -42,49 +42,91 @@ Tema **Shadow Dragon** diambil dari wallpaper — dark navy dengan aksen violet 
 
 ---
 
-## 2. Install EndeavourOS
+## 2. Install Arch Linux
 
-### Proses Instalasi
+> Setup ini menggunakan **archinstall** — script installer resmi Arch yang interaktif. Jauh lebih mudah dari manual install tapi tetap memberikan sistem Arch murni.
 
-1. Boot dari USB EndeavourOS
-2. Pilih **"Online Installation"**
-3. Di halaman **Desktop Environment**, pilih **"No Desktop"** (paling bawah)
-4. Isi partisi, username, password, timezone seperti biasa
-5. Klik Install, tunggu selesai, lalu reboot
+### 2.1 Persiapan USB Bootable
 
-> ⚠️ Setelah reboot lo akan masuk ke **TTY** (layar hitam, no GUI). Ini normal. Login dengan username & password yang dibuat saat install.
+1. Download ISO terbaru dari [archlinux.org/download](https://archlinux.org/download/)
+2. Flash ke USB dengan [Balena Etcher](https://etcher.balena.io/) atau `dd`:
+   ```bash
+   dd if=archlinux-*.iso of=/dev/sdX bs=4M status=progress
+   ```
+3. Boot dari USB (pastikan UEFI mode aktif, Secure Boot off)
 
-### Pastikan Internet Tersambung
+### 2.2 Sambungkan Internet di Live Environment
 
 ```bash
+# Cek koneksi (ethernet biasanya langsung konek)
+ping -c 3 archlinux.org
+
+# Kalau WiFi, gunakan iwctl:
+iwctl
+[iwd]# device list
+[iwd]# station wlan0 scan
+[iwd]# station wlan0 get-networks
+[iwd]# station wlan0 connect "NamaWiFi"
+[iwd]# exit
+```
+
+### 2.3 Jalankan archinstall
+
+```bash
+archinstall
+```
+
+Isi pilihan berikut di menu archinstall:
+
+| Setting | Value |
+|---|---|
+| **Mirrors** | Pilih mirror terdekat (ID/SG) |
+| **Locales** | `en_US.UTF-8` |
+| **Disk configuration** | Best-effort default partition (atau manual) |
+| **Filesystem** | `ext4` atau `btrfs` |
+| **Bootloader** | `systemd-boot` (UEFI) atau `grub` |
+| **Swap** | True (otomatis buat swapfile) |
+| **Hostname** | Terserah, misal `shadow-dragon` |
+| **Root password** | Set password root |
+| **User account** | Buat user baru, **centang sudo** |
+| **Profile** | **Minimal** — jangan pilih desktop environment apapun |
+| **Audio** | `pipewire` |
+| **Kernels** | `linux` (atau `linux-zen` untuk performance) |
+| **Additional packages** | `git` `base-devel` `networkmanager` |
+| **Network configuration** | `NetworkManager` |
+| **Timezone** | `Asia/Jakarta` (atau sesuai lokasi) |
+
+Setelah semua diisi, pilih **Install** dan tunggu hingga selesai, lalu reboot.
+
+### 2.4 Setelah Reboot
+
+Login dengan username & password yang dibuat tadi (masuk ke TTY, ini normal), lalu:
+
+```bash
+# Aktifkan NetworkManager
+sudo systemctl enable --now NetworkManager
+
+# Sambungkan WiFi kalau perlu
+nmcli device wifi connect "NamaWiFi" password "passwordwifi"
+
+# Verifikasi internet
 ping -c 3 archlinux.org
 ```
 
-Kalau tidak ada response, sambungkan WiFi dulu:
-
-```bash
-# Cek interface WiFi
-ip link
-
-# Konek ke WiFi
-nmcli device wifi connect "NamaWiFi" password "passwordwifi"
-```
+> ⚠️ **Catatan Hibernate:** Fitur hibernate di wlogout membutuhkan swap yang cukup (minimal sebesar RAM) dan kernel parameter `resume=`. Setup hibernate manual jika dibutuhkan — lihat [Arch Wiki: Hibernation](https://wiki.archlinux.org/title/Hibernation).
 
 ---
 
 ## 3. Clone Repo & Jalanin install.sh
 
-Setelah masuk TTY dan internet tersambung, jalankan:
+Setelah internet tersambung dari TTY, jalankan:
 
 ```bash
-# Install git dulu (minimal)
-sudo pacman -S git
-
 # Clone dotfiles
-git clone https://github.com/andhikarahmanp/endeavouros-hyprland-setup.git ~/endeavouros-hyprland-setup
+git clone https://github.com/andhikarahmanp/endeavouros-hyprland-setup.git ~/shadow-dragon-setup
 
 # Masuk ke folder
-cd ~/endeavouros-hyprland-setup
+cd ~/shadow-dragon-setup
 
 # Beri izin eksekusi
 chmod +x install.sh
@@ -94,7 +136,7 @@ chmod +x install.sh
 ```
 
 `install.sh` akan otomatis menangani:
-- Update sistem
+- Update sistem (`pacman -Syu`)
 - Install yay (AUR helper)
 - Install semua package (Hyprland, Waybar, Dunst, Rofi, Kitty, dll)
 - Enable semua service (NetworkManager, SDDM, Bluetooth, PipeWire)
@@ -191,7 +233,7 @@ App launcher. Config ada di `~/.config/rofi/`.
 ### Kitty
 Terminal emulator. Config ada di `~/.config/kitty/kitty.conf`.
 
-- **Font:** JetBrainsMono Nerd Font 12.5px
+- **Font:** JetBrainsMono Nerd Font 12px
 - **Opacity:** 0.92
 - **Cursor:** Beam, blink interval 0.5s
 - **Tab bar:** Powerline style, slanted
@@ -218,18 +260,20 @@ Power menu. Config ada di `~/.config/wlogout/`.
 - Tombol: Lock, Hibernate, Logout, Shutdown, Sleep, Reboot
 - Trigger: `Super + Shift + Q`
 
+> ⚠️ **Hibernate** membutuhkan konfigurasi swap tambahan. Lihat [Arch Wiki: Hibernation](https://wiki.archlinux.org/title/Hibernation).
+
 ### SDDM
 Login manager dengan tema **corners**.
 
 - Config ada di `/etc/sddm.conf.d/10-hyprland.conf`
 - Session: Hyprland (otomatis terpilih)
 
-### awww
-Wallpaper daemon (pengganti swww). Dijalankan otomatis saat Hyprland start.
+### swww
+Wallpaper daemon. Dijalankan otomatis saat Hyprland start.
 
 ```bash
 # Ganti wallpaper manual
-awww img ~/Pictures/Wallpapers/wallpaper.jpg --transition-type wipe --transition-fps 60
+swww img ~/Pictures/Wallpapers/wallpaper.jpg --transition-type wipe --transition-fps 60
 ```
 
 ---
@@ -241,7 +285,9 @@ awww img ~/Pictures/Wallpapers/wallpaper.jpg --transition-type wipe --transition
 ├── hypr/
 │   ├── hyprland.conf    — config utama Hyprland
 │   ├── hyprlock.conf    — config lock screen
-│   └── hypridle.conf    — config auto lock & dim
+│   ├── hypridle.conf    — config auto lock & dim
+│   └── scripts/
+│       └── screenshot.sh — screenshot helper
 ├── waybar/
 │   ├── config.jsonc     — modul & layout waybar
 │   └── style.css        — tema visual waybar
@@ -275,8 +321,6 @@ awww img ~/Pictures/Wallpapers/wallpaper.jpg --transition-type wipe --transition
 
 Jalankan semua test ini setelah setup selesai. Kalau ada yang gagal, langsung cek section 8 Troubleshooting.
 
----
-
 ### 7.1 Hyprland & Display
 
 | Test | Cara | Hasil yang diharapkan |
@@ -286,8 +330,6 @@ Jalankan semua test ini setelah setup selesai. Kalau ada yang gagal, langsung ce
 | Animasi window | Buka & tutup terminal | Ada animasi slide smooth |
 | Border aktif | Buka 2 window | Border gradient violet-magenta di window aktif |
 | Blur | Buka Rofi | Background blur terlihat |
-
----
 
 ### 7.2 Keybinding Dasar
 
@@ -304,8 +346,6 @@ Jalankan semua test ini setelah setup selesai. Kalau ada yang gagal, langsung ce
 | Lock screen | `Super + Shift + L` | Hyprlock muncul |
 | Power menu | `Super + Shift + Q` | Wlogout muncul |
 
----
-
 ### 7.3 Waybar
 
 | Test | Cara | Hasil yang diharapkan |
@@ -318,8 +358,6 @@ Jalankan semua test ini setelah setup selesai. Kalau ada yang gagal, langsung ce
 | Klik volume | Klik icon volume | Pavucontrol terbuka |
 | Brightness | Scroll di icon brightness | Brightness berubah |
 | Klik power | Klik icon ⏻ di kanan | Wlogout muncul |
-
----
 
 ### 7.4 Audio
 
@@ -337,8 +375,6 @@ pactl list sinks short
 | Volume key | Tekan tombol Vol+ / Vol- | Volume berubah, notif muncul |
 | Mute | Tekan tombol Mute | Audio mute, icon waybar berubah |
 
----
-
 ### 7.5 Notifikasi (Dunst)
 
 ```bash
@@ -353,8 +389,6 @@ notify-send -u critical "Critical" "Ini notifikasi penting!"
 | Notifikasi critical | Muncul dengan border magenta, tidak auto-dismiss |
 | Klik notifikasi | Notifikasi hilang |
 
----
-
 ### 7.6 Screenshot
 
 | Test | Shortcut | Hasil yang diharapkan |
@@ -363,19 +397,11 @@ notify-send -u critical "Critical" "Ini notifikasi penting!"
 | Screenshot full | `Super + Print` | Swappy terbuka dengan screenshot fullscreen |
 | Screenshot ke clipboard | `Super + Shift + P` | Crosshair muncul, pilih area, tersimpan ke clipboard |
 
----
-
 ### 7.7 Clipboard
-
-```bash
-# Copy sesuatu dulu, lalu test
-```
 
 | Test | Shortcut | Hasil yang diharapkan |
 |---|---|---|
 | Clipboard history | `Super + V` | Rofi muncul dengan daftar history clipboard |
-
----
 
 ### 7.8 Bluetooth & Network
 
@@ -385,8 +411,6 @@ notify-send -u critical "Critical" "Ini notifikasi penting!"
 | Klik network | Klik icon network | nm-connection-editor terbuka |
 | Bluetooth | Klik icon bluetooth | Blueman terbuka |
 
----
-
 ### 7.9 GTK Theme & Tampilan
 
 | Test | Cara | Hasil yang diharapkan |
@@ -394,8 +418,6 @@ notify-send -u critical "Critical" "Ini notifikasi penting!"
 | Thunar theme | Buka Thunar | Tampilan dark, icon Papirus |
 | Cursor | Gerakin mouse | Cursor Bibata-Modern-Classic |
 | Pavucontrol theme | Buka pavucontrol | Tampilan dark |
-
----
 
 ### 7.10 Lock Screen & Idle
 
@@ -423,20 +445,14 @@ Hyprland
 ### Waybar Tidak Muncul
 
 ```bash
-# Test manual
 waybar &
-
-# Lihat error
 waybar 2>&1 | head -30
 ```
 
 ### Audio Tidak Berfungsi
 
 ```bash
-# Cek status PipeWire
 systemctl --user status pipewire pipewire-pulse wireplumber
-
-# Restart jika perlu
 systemctl --user restart pipewire pipewire-pulse wireplumber
 ```
 
@@ -450,10 +466,6 @@ sudo systemctl restart NetworkManager
 ### Screen Tearing (Intel iGPU)
 
 Tambahkan ke `/etc/environment`:
-
-```bash
-sudo nvim /etc/environment
-```
 
 ```
 LIBVA_DRIVER_NAME=iHD
@@ -471,7 +483,20 @@ systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desk
 sudo systemctl enable --now bluetooth
 ```
 
+### Hibernate Tidak Berfungsi
+
+```bash
+# Cek swap yang tersedia
+swapon --show
+
+# Tambahkan resume parameter ke bootloader
+# Untuk systemd-boot, edit /boot/loader/entries/*.conf:
+# tambahkan di baris options: resume=UUID=<uuid-swap-partition>
+```
+
+Referensi lengkap: [Arch Wiki — Hibernation](https://wiki.archlinux.org/title/Hibernation)
+
 ---
 
-> 🐉 **Shadow Dragon Desktop** — Built with EndeavourOS + Hyprland  
+> 🐉 **Shadow Dragon Desktop** — Built with Arch Linux + Hyprland  
 > Designed for power, elegance, and speed.
