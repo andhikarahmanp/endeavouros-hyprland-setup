@@ -166,6 +166,7 @@ AUR_PKGS=(
     papirus-icon-theme
     bibata-cursor-theme
     sddm-theme-corners-git
+    otf-departure-mono-nerd
 )
 
 info "Menginstall komponen desktop via yay (AUR)..."
