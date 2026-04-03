@@ -123,7 +123,7 @@ Setelah internet tersambung dari TTY, jalankan:
 
 ```bash
 # Clone dotfiles
-git clone https://github.com/andhikarahmanp/endeavouros-hyprland-setup.git ~/shadow-dragon-setup
+git clone https://github.com/andhikarahmanp/arch-hyprland-setup.git ~/shadow-dragon-setup
 
 # Masuk ke folder
 cd ~/shadow-dragon-setup
