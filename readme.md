@@ -343,7 +343,7 @@ Jalankan semua test ini setelah setup selesai. Kalau ada yang gagal, langsung ce
 | Toggle float | `Super + Shift + F` | Window jadi floating |
 | Pindah workspace | `Super + 2` | Pindah ke workspace 2 |
 | Pindah window | `Super + Shift + 2` | Window pindah ke workspace 2 |
-| Lock screen | `Super + Shift + L` | Hyprlock muncul |
+| Lock screen | `Super + Escape` | Hyprlock muncul |
 | Power menu | `Super + Shift + Q` | Wlogout muncul |
 
 ### 7.3 Waybar
@@ -423,7 +423,7 @@ notify-send -u critical "Critical" "Ini notifikasi penting!"
 
 | Test | Cara | Hasil yang diharapkan |
 |---|---|---|
-| Manual lock | `Super + Shift + L` | Hyprlock muncul, wallpaper blur |
+| Manual lock | `Super + Escape` | Hyprlock muncul, wallpaper blur |
 | Unlock | Ketik password + Enter | Kembali ke desktop |
 | Auto dim | Diamkan 5 menit | Brightness turun otomatis |
 | Auto lock | Diamkan 6 menit | Hyprlock aktif otomatis |
