@@ -41,6 +41,7 @@ window#waybar {
 
 #workspaces button {
     padding: 2px 8px;
+    margin: 0px 2px;
     color: @subtext;
     background: transparent;
     border-radius: 8px;
