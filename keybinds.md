@@ -90,7 +90,7 @@
 
 | Shortcut | Action |
 |---|---|
-| `Super + Shift + L` | Lock screen |
+| `Super + Escape` | Lock screen |
 | `Super + Shift + Q` | Power menu (Wlogout) |
 
 ---
