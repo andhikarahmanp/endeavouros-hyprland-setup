@@ -2,7 +2,7 @@
 
 # ============================================================
 #  Shadow Dragon — Dotfiles Installer
-#  EndeavourOS + Hyprland (Intel iGPU)
+#  Arch Linux + Hyprland (Intel iGPU)
 # ============================================================
 
 set -e
@@ -154,6 +154,7 @@ PACMAN_PKGS=(
     curl
     neovim
     playerctl
+    qt5ct
 )
 
 info "Menginstall komponen desktop via pacman..."
@@ -195,9 +196,12 @@ mkdir -p "$HOME/Pictures/Wallpapers"
 
 # Hyprland
 info "Copy config Hyprland..."
-cp "$DOTFILES_DIR/hypr/hyprland.conf"  "$CONFIG_DIR/hypr/hyprland.conf"
-cp "$DOTFILES_DIR/hypr/hyprlock.conf"  "$CONFIG_DIR/hypr/hyprlock.conf"
-cp "$DOTFILES_DIR/hypr/hypridle.conf"  "$CONFIG_DIR/hypr/hypridle.conf"
+mkdir -p "$CONFIG_DIR/hypr/scripts"
+cp "$DOTFILES_DIR/hypr/hyprland.conf"          "$CONFIG_DIR/hypr/hyprland.conf"
+cp "$DOTFILES_DIR/hypr/hyprlock.conf"          "$CONFIG_DIR/hypr/hyprlock.conf"
+cp "$DOTFILES_DIR/hypr/hypridle.conf"          "$CONFIG_DIR/hypr/hypridle.conf"
+cp "$DOTFILES_DIR/hypr/scripts/screenshot.sh"  "$CONFIG_DIR/hypr/scripts/screenshot.sh"
+chmod +x "$CONFIG_DIR/hypr/scripts/screenshot.sh"
 success "Hyprland config OK"
 
 # Waybar
