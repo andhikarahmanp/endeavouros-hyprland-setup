@@ -124,6 +124,9 @@ PACMAN_PKGS=(
     thunar-volman
     gvfs
     gvfs-mtp
+    gnome-keyring
+    libsecret
+    seahorse
     tumbler
     ffmpegthumbnailer
     grim
