@@ -27,7 +27,7 @@ window {
     border-radius:          14px;
     border:                 1px solid;
     border-color:           @accent1;
-    background-color:       @bg;
+    background-color:       rgba(10, 11, 20, 0.75);
     cursor:                 "default";
 }
 
@@ -98,15 +98,18 @@ element {
     orientation:    horizontal;
 }
 
-element.normal.normal { background-color: transparent; }
-element.normal.urgent { background-color: @red; }
-element.normal.active { background-color: @surface; }
+element.normal.normal { background-color: transparent; text-color: @text; }
+element.normal.urgent { background-color: @red; text-color: @text; }
+element.normal.active { background-color: @surface; text-color: @text; }
+
+element.alternate.normal  { background-color: transparent; text-color: @text; }
+element.alternate.urgent  { background-color: @red; text-color: @text; }
+element.alternate.active  { background-color: @surface; text-color: @text; }
 
 element.selected.normal {
-    background-color: linear-gradient(#7c3aed22, #d946ef22);
-    border:           1px solid;
-    border-color:     @accent1;
+    background-color: @accent1;
     text-color:       @text;
+    border-radius:    8px;
 }
 
 element.selected.urgent { background-color: @red; }
