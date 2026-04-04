@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================================
-#  Shadow Dragon — Dotfiles Installer
+#  Your Name (Kimi No Na wa) — Dotfiles Installer
 #  Arch Linux + Hyprland (Intel iGPU)
 # ============================================================
 
@@ -227,7 +227,7 @@ success "Dunst config OK"
 # Rofi
 info "Copy config Rofi..."
 cp "$DOTFILES_DIR/rofi/config.rasi"         "$CONFIG_DIR/rofi/config.rasi"
-cp "$DOTFILES_DIR/rofi/shadow-dragon.rasi"  "$CONFIG_DIR/rofi/shadow-dragon.rasi"
+cp "$DOTFILES_DIR/rofi/your-name.rasi"  "$CONFIG_DIR/rofi/your-name.rasi"
 success "Rofi config OK"
 
 # Kitty
@@ -331,7 +331,7 @@ fi
 # ============================================================
 
 echo -e "\n${PURPLE}╔══════════════════════════════════════════╗${NC}"
-echo -e "${PURPLE}║   Shadow Dragon Desktop — Setup Selesai! ║${NC}"
+echo -e "${PURPLE}║   Your Name Desktop — Setup Selesai! ║${NC}"
 echo -e "${PURPLE}╚══════════════════════════════════════════╝${NC}\n"
 echo -e "${GREEN}Semua package terinstall dan config sudah di-copy.${NC}"
 echo -e "${YELLOW}Silakan reboot untuk masuk ke Hyprland via SDDM.${NC}\n"
