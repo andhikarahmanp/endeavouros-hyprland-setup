@@ -300,6 +300,11 @@ success "PipeWire OK"
 # ============================================================
 # SELESAI
 # ============================================================
+
+# to do: add
+# sudo systemctl enable tlp.service
+# sudo systemctl start tlp.service
+
 echo -e "\n${PURPLE}╔══════════════════════════════════════════╗${NC}"
 echo -e "${PURPLE}║   Shadow Dragon Desktop — Setup Selesai! ║${NC}"
 echo -e "${PURPLE}╚══════════════════════════════════════════╝${NC}\n"
