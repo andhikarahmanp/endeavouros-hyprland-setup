@@ -153,6 +153,13 @@ PACMAN_PKGS=(
     curl
     playerctl
     qt5ct
+    fastfetch
+    file-roller
+    gnome-font-viewer
+    zip
+    unzip
+    p7zip
+    tlp
 )
 
 info "Menginstall komponen desktop via pacman..."
