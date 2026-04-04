@@ -10,4 +10,4 @@ configuration {
     terminal:                   "kitty";
 }
 
-@import "shadow-dragon.rasi"
+@import "your-name.rasi"
