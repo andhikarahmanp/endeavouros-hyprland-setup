@@ -20,7 +20,7 @@
     horizontal_padding = 14
     text_icon_padding = 10
     frame_width = 1
-    frame_color = "#7c3aed"
+    frame_color = "#5bbfcf"
     separator_color = frame
     sort = yes
     idle_threshold = 120
@@ -57,21 +57,21 @@
     mouse_right_click = close_all
 
 [urgency_low]
-    background = "#0a0b14"
-    foreground = "#e2e8f0"
-    frame_color = "#1e1b4b"
+    background = "#050a14"
+    foreground = "#e8d5ff"
+    frame_color = "#0f2744"
     timeout = 4
     icon = dialog-information
 
 [urgency_normal]
-    background = "#0f0d2a"
-    foreground = "#e2e8f0"
-    frame_color = "#7c3aed"
+    background = "#0d1f3c"
+    foreground = "#e8d5ff"
+    frame_color = "#5bbfcf"
     timeout = 6
 
 [urgency_critical]
-    background = "#1a0520"
-    foreground = "#f43f5e"
-    frame_color = "#d946ef"
+    background = "#0f1a2e"
+    foreground = "#c0392b"
+    frame_color = "#a78be0"
     timeout = 0
     icon = dialog-error
