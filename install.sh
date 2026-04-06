@@ -121,55 +121,88 @@ success "Hyprland & Wayland stack berhasil diinstall"
 section "Install Komponen Desktop"
 
 PACMAN_PKGS=(
+    # --- Bar & Notifications ---
     waybar
     dunst
     libnotify
+
+    # --- Launcher & Display Manager ---
     rofi-wayland
     sddm
+
+    # --- Terminal & File Manager ---
     kitty
     thunar
     thunar-archive-plugin
     thunar-volman
     gvfs
     gvfs-mtp
+
+    # --- Keyring & Secrets ---
     gnome-keyring
     libsecret
     seahorse
+
+    # --- Thumbnails & Previews ---
     tumbler
     ffmpegthumbnailer
+
+    # --- Screenshot & Clipboard ---
     grim
     slurp
     swappy
     wl-clipboard
     cliphist
+
+    # --- Idle & Theming ---
     hypridle
     nwg-look
+
+    # --- Fonts ---
     ttf-jetbrains-mono-nerd
     ttf-nerd-fonts-symbols
     noto-fonts
     noto-fonts-emoji
     ttf-font-awesome
+
+    # --- GTK Theme ---
     materia-gtk-theme
+
+    # --- Hardware Control ---
     brightnessctl
+    tlp
+
+    # --- Bluetooth ---
     bluez
     bluez-utils
     blueman
+
+    # --- Media ---
     imv
     mpv
-    btop
-    xdg-desktop-portal-gtk
-    wget
-    curl
     playerctl
-    qt5ct
+
+    # --- System Monitor & Eye Candy ---
+    btop
     fastfetch
     cmatrix
+
+    # --- Portals ---
+    xdg-desktop-portal-gtk
+
+    # --- Archive & File Utils ---
     file-roller
     gnome-font-viewer
     zip
     unzip
     p7zip
-    tlp
+
+    # --- Network & Download ---
+    wget
+    curl
+
+    # --- Qt Theming ---
+    qt5ct
 )
 
 info "Menginstall komponen desktop via pacman..."
