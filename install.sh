@@ -77,23 +77,32 @@ fi
 section "Install Hyprland & Wayland Stack"
 
 WAYLAND_PKGS=(
+    # --- Hyprland & Wayland Core ---
     hyprland
     wayland
     wayland-protocols
     xorg-xwayland
     xdg-desktop-portal-hyprland
     xdg-utils
+
+    # --- Qt Wayland Support ---
     qt5-wayland
     qt6-wayland
+
+    # --- Audio (PipeWire Stack) ---
     pipewire
     pipewire-alsa
     pipewire-pulse
     pipewire-jack
     wireplumber
     pavucontrol
+
+    # --- System Services ---
     polkit-kde-agent
     networkmanager
     network-manager-applet
+
+    # --- Graphics (Intel) ---
     mesa
     intel-media-driver
     vulkan-intel
