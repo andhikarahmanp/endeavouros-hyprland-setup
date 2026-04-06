@@ -317,11 +317,13 @@ info "Konfigurasi SDDM theme corners..."
 sudo mkdir -p /etc/sddm.conf.d
 sudo bash -c 'cat > /etc/sddm.conf.d/10-hyprland.conf <<EOF
 [Theme]
-Current=corners
+Current=silent
 
 [General]
 HaltCommand=/usr/bin/systemctl poweroff
 RebootCommand=/usr/bin/systemctl reboot
+InputMethod=qtvirtualkeyboard
+GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard
 EOF'
 success "SDDM config OK"
 
